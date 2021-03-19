@@ -36,7 +36,7 @@ void TRY(int k)
         value += (i * C[k]);
         long long bound;
         bound = (n-k) * max_value + value;
-        if (weight < b && bound > best_value)
+        if (weight <= b && bound > best_value)
         {
             TRY(k + 1);
         }
