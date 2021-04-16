@@ -2,7 +2,7 @@
 
 using namespace std;
 
-
+int count
 
 int main(){
 
