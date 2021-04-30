@@ -16,8 +16,9 @@ bool accept(long long max_value, bool show)
         memset(split, 0, sizeof(split));
     }
     for (int i = m; i >= 1; i--)
-    {   
-        if (books[i] > max_value) return false;
+    {
+        if (books[i] > max_value)
+            return false;
         if (sum + books[i] <= max_value)
         {
             sum += books[i];
@@ -33,12 +34,22 @@ bool accept(long long max_value, bool show)
         }
     }
     if (show)
-    {   cout << "res" << res << endl;
-        for (int i = 1; i <= m; i++){
-            cout << books[i] << " ";
-            if (split[i] || res < k){
-                cout << "/ ";
+    {
+        //cout << "res" << res << endl;
+        for (int i = 1; i < m; i++)
+        {
+            if (res < k && split[i] == 0)
+            {
+                split[i] = 1;
                 res++;
+            }
+        }
+        for (int i = 1; i <= m; i++)
+        {
+            cout << books[i] << " ";
+            if (split[i])
+            {
+                cout << "/ ";
             }
         }
         cout << endl;
@@ -71,9 +82,8 @@ int main()
                 low = mid;
             }
         }
-        //accept(high, 1);
-        cout << high << endl;
-
+        accept(high, 1);
+        //cout << high << endl;
     }
     return 0;
 }
