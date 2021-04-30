@@ -23,7 +23,7 @@ bool accept(int books[], int max_value)
             res += 1;
         }
     }
-    if (res > k)
+    if (res >= k)
         return false;
 
     return true;
@@ -32,19 +32,17 @@ bool accept(int books[], int max_value)
 void print_res(int books[], int volumn)
 {
     int sum = 0;
-    for (int i = 1; i <= m; i++)
+    for (int i = 1; i < m; i++)
     {
-        if (sum + books[i] <= volumn){
-            sum += books[i];
-            cout << books[i] << " ";
-        }
-        else{
+        sum += books[i];
+        cout << books[i] << " ";
+        if (sum + books[i + 1] > volumn)
+        {
             cout << "/ ";
-            cout << books[i] << " ";
-            sum = books[i];
+            sum = 0;
         }
     }
-    cout << endl;
+    cout << books[m] << " " << endl;
 }
 
 int main()

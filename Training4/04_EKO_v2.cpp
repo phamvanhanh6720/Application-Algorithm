@@ -41,6 +41,7 @@ int main(){
             low = mid;
         }
     }
+    cout << high << endl;
     cout << low << endl;
 
     return 0;
