@@ -4,6 +4,7 @@ using namespace std;
 int n, k1, k2;
 long long res;
 const long long M = (long long)(1e9+7);
+
 void check(int i){
     if ( (i-2) == n || (i-2) == (n-1)){
         res = (res+1) % M;
