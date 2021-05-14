@@ -27,6 +27,7 @@ void dfs(int u){
 }
 
 int main(){
+    ios_base::sync_with_stdio(0); cin.tie(0);
     cin >> n_test;
     int ori_test = n_test;
 
