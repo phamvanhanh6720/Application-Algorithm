@@ -1,63 +1,44 @@
+
 #include <bits/stdc++.h>
 
 using namespace std;
 
 int n;
 const int N = 1e5 + 10;
-vector<vector<pair<int, int>>> adj;
-int weight;
-int res;
-bool is_visited[N];
-bool is_leave[N];
+vector<pair<int,int>> Adj[N];
 
-void dfs(int u)
-{
-    is_visited[u] = true;
-    for (int i = 0; i < adj[u].size(); i++){
-        int v = adj[u][i].first;
-        int w = adj[u][i].second;
-        if (!is_visited[v]){
-            weight += w;
-            if (is_leave[v]){
-                is_visited[v] = true;
-                res = max(res, weight);
-            }
-            else{
-                dfs(v);
-            }
-            weight -= w;
+int min_length;
+
+void Bellman_Ford(int start, int n){
+    vector<int> Dist(N, INT_MAX);
+    Dist[start] = 0;
+    for (int u = 1; u<=n; u++){
+        for (int j = 0; j < Adj[u].size(); j++){
+            int v = Adj[u][j].first;
+            int w = Adj[u][j].second;
+            
+            Dist[v] = min(Dist[v], Dist[u] + w);
+
+            min_length = min(min_length, Dist[v]);
         }
     }
+
 }
 
-int main()
-{
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
+int main(){
+    ios_base::sync_with_stdio(0); cin.tie(0);
     cin >> n;
-    adj = vector<vector<pair<int, int>>>(n + 1);
-    memset(is_leave, false, sizeof(is_leave));
-
-    for (int i = 1; i <= (n - 1); i++)
-    {
+    for (int i = 1; i <= n-1; i++){
         int u, v, w;
         cin >> u >> v >> w;
-        adj[u].push_back(make_pair(v, w));
-        adj[v].push_back(make_pair(u, w));
+        Adj[u].push_back({v, -w});
+        Adj[v].push_back({u, -w});
     }
-    for (int i = 1; i <= n; i++){
-        if (adj[i].size() == 1){
-            is_leave[i] = true;
-        }
+    min_length = 0;
+    for (int start = 1; start <= n; start++){
+        Bellman_Ford(start, n);
     }
-    res = 0;
+    cout << -min_length<< endl;
 
-    for (int i = 1; i <= n; i++)
-    {
-        weight = 0;
-        memset(is_visited, 0, sizeof(is_visited));
-        dfs(i);
-    }
-    cout << res << endl;
     return 0;
 }
